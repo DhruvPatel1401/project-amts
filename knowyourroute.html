@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Know Your Route</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FAF4E6;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            position: relative;
+        }
+        .header {
+            background-color: #d0021b;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .back-arrow {
+            position: absolute;
+            left: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+        .search-box {
+            margin-top: 15px;
+            position: relative;
+        }
+        input {
+            padding: 10px;
+            width: 95%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .suggestions {
+            width: 95%;
+            margin: auto;
+            background: #fff;
+            border: 1px solid #ccc;
+            display: none;
+            position: absolute;
+            z-index: 10;
+            max-height: 150px;
+            overflow-y: auto;
+            border-radius: 5px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .suggestions li {
+            padding: 8px;
+            cursor: pointer;
+        }
+        .suggestions li:hover {
+            background: #eee;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background: #d0021b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: darkred;
+        }
+        /* Recent Searches Styling */
+        .history-container {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        .history-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .history-list li {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            border-left: 5px solid #d0021b;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .history-list li span {
+            flex-grow: 1;
+            text-align: left;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .clear-btn {
+            background: #ff4444;
+            color: white;
+            padding: 5px 8px;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .clear-btn:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-arrow">&larr;</a>
+            <span>Know Your Route</span>
+        </div>
+        <div class="search-box">
+            <input type="text" id="fromStation" placeholder="From Station" oninput="showSuggestions('fromStation')">
+            <ul id="fromSuggestions" class="suggestions"></ul>
+
+            <input type="text" id="toStation" placeholder="To Station" oninput="showSuggestions('toStation')">
+            <ul id="toSuggestions" class="suggestions"></ul>
+
+            <button onclick="searchRoute()">🔍 Search</button>
+        </div>
+
+        <div class="history-container">
+            <div class="history-title">📜 Recent Searches</div>
+            <ul id="recentSearches" class="history-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        const busStations = [
+            "Thakkar Bapanagar", "Rameshvar Park", "Prem Darwaja", "Gota Cross Road", "Shahpur Darwaja",
+            "Radheshyam Society", "Bapunagar", "Naroda", "CTM", "Iskcon Cross Road", "Gandhinagar Bus Stand",
+            "Maninagar", "Geeta Mandir", "Kalupur Railway Station", "Arbudanagar", "Gujarat University",
+            "Income Tax Office", "Sarangpur", "Kalupur", "Lal Darwaja", "Delhi Darwaja", "Radheshyam Society"
+        ];
+
+        let searchHistory = [];
+
+        function searchRoute() {
+            const from = document.getElementById("fromStation").value.trim();
+            const to = document.getElementById("toStation").value.trim();
+
+            if (!from || !to) {
+                alert("Please enter both stations.");
+                return;
+            }
+
+            const route = `${from} ➝ ${to}`;
+            if (!searchHistory.includes(route)) {
+                searchHistory.unshift(route);
+                if (searchHistory.length > 5) searchHistory.pop();
+            }
+            updateRecentSearches();
+            clearInputs();
+        }
+
+        function updateRecentSearches() {
+            const list = document.getElementById("recentSearches");
+            list.innerHTML = searchHistory.map(route => `
+                <li>
+                    <span>${route}</span>
+                    <button class="clear-btn" onclick="removeSearch('${route}')">✖</button>
+                </li>
+            `).join('');
+        }
+
+        function removeSearch(route) {
+            searchHistory = searchHistory.filter(item => item !== route);
+            updateRecentSearches();
+        }
+
+        function clearInputs() {
+            document.getElementById("fromStation").value = "";
+            document.getElementById("toStation").value = "";
+        }
+
+        function showSuggestions(inputId) {
+            const inputElement = document.getElementById(inputId);
+            const searchTerm = inputElement.value.toLowerCase();
+            const suggestionBox = document.getElementById(inputId === "fromStation" ? "fromSuggestions" : "toSuggestions");
+            
+            suggestionBox.innerHTML = "";
+            suggestionBox.style.display = "none";
+            
+            if (searchTerm === "") return;
+            
+            const filteredSuggestions = busStations.filter(station => station.toLowerCase().includes(searchTerm));
+            
+            if (filteredSuggestions.length > 0) {
+                suggestionBox.style.display = "block";
+                suggestionBox.innerHTML = filteredSuggestions.map(station => `<li onclick="selectStation('${inputId}', '${station}')">${station}</li>`).join('');
+            }
+        }
+
+        function selectStation(inputId, station) {
+            document.getElementById(inputId).value = station;
+            document.getElementById(inputId === "fromStation" ? "fromSuggestions" : "toSuggestions").style.display = "none";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where Is My Bus</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #FAF4E6;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #D92525;
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .back-arrow {
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            left: 15px;
+        }
+        .header-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .search-box {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .search-btn {
+            background: #D92525;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .dropdown {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .dropdown li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        .dropdown li:hover {
+            background-color: #f8d7da;
+        }
+        .recent-searches {
+            margin-top: 20px;
+        }
+        .recent-item {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="back-arrow" onclick="goBack()"><i class="fas fa-arrow-left"></i></span>
+            <div class="header-title">Where Is My Bus</div>
+        </div>
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Enter route number..." onkeyup="filterRoutes()">
+            <button class="search-btn" onclick="addRecentSearch()">Search</button>
+        </div>
+        <ul id="route-list" class="dropdown">
+            <li onclick="selectRoute(this)">144/1 Up - Lal Darwaja TO Madhav</li>
+            <li onclick="selectRoute(this)">144/1 Down - Madhav Homes TO Lal Darwaja</li>
+            <li onclick="selectRoute(this)">144sh Up - Sarangpur TO Arbuda Nagar</li>
+            <li onclick="selectRoute(this)">144sh Down - Arbuda Nagar TO Sarangpur</li>
+            <li onclick="selectRoute(this)">144 Up - Arbuda Nagar TO Gujarat University</li>
+            <li onclick="selectRoute(this)">144 Down - Gujarat University TO Arbuda Nagar</li>
+        </ul>
+        <div class="recent-searches">
+            <h5>Recent Searches</h5>
+            <div id="recent-list"></div>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+        function filterRoutes() {
+            let input = document.getElementById("search").value.toLowerCase();
+            let dropdown = document.getElementById("route-list");
+            let items = dropdown.getElementsByTagName("li");
+            if (input.length === 0) {
+                dropdown.style.display = "none";
+                return;
+            }
+            dropdown.style.display = "block";
+            for (let i = 0; i < items.length; i++) {
+                let text = items[i].innerText.toLowerCase();
+                items[i].style.display = text.includes(input) ? "block" : "none";
+            }
+        }
+        function selectRoute(element) {
+            document.getElementById("search").value = element.innerText;
+            document.getElementById("route-list").style.display = "none";
+        }
+        function addRecentSearch() {
+            let searchValue = document.getElementById("search").value.trim();
+            if (searchValue === "") {
+                alert("Please enter a route number!");
+                return;
+            }
+            let recentList = document.getElementById("recent-list");
+            let items = recentList.getElementsByClassName("recent-item");
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].innerText === searchValue) {
+                    return; 
+                }
+            }
+            let newItem = document.createElement("div");
+            newItem.classList.add("recent-item");
+            newItem.innerText = searchValue;
+            newItem.onclick = function () { document.getElementById("search").value = searchValue; };
+            recentList.prepend(newItem);
+        }
+    </script>
+</body>
+</html>

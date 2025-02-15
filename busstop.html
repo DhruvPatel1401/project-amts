@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMTS Bus Stop Details</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f3e7;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 750px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: auto;
+        }
+
+        /* Header */
+        h1 {
+            background-color: #d32f2f;
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        /* Search Box */
+        #searchBox {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border: 2px solid #d32f2f;
+            border-radius: 5px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        #searchBox:focus {
+            border-color: #b71c1c;
+            box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ffe0e0;
+            transition: 0.3s;
+        }
+
+        /* Back Button */
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #d32f2f;
+            font-size: 16px;
+            padding: 10px 15px;
+            border: 2px solid #d32f2f;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #d32f2f;
+            color: white;
+        }
+    </style>
+    <script>
+        function searchBusStops() {
+            let input = document.getElementById('searchBox').value.toLowerCase();
+            let table = document.getElementById('busTable');
+            let rows = table.getElementsByTagName('tr');
+            
+            for (let i = 1; i < rows.length; i++) {
+                let stopName = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
+                let location = rows[i].getElementsByTagName('td')[1].textContent.toLowerCase();
+                let routes = rows[i].getElementsByTagName('td')[2].textContent.toLowerCase();
+                
+                rows[i].style.display = stopName.includes(input) || location.includes(input) || routes.includes(input) ? '' : 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>AMTS Bus Stop Details</h1>
+        <input type="text" id="searchBox" placeholder="Search by stop name, location, or route number..." onkeyup="searchBusStops()">
+        
+        <table id="busTable">
+            <tr>
+                <th>Stop Name</th>
+                <th>Location</th>
+                <th>Routes Available</th>
+            </tr>
+            <tr>
+                <td>Lal Darwaja</td>
+                <td>Central Ahmedabad</td>
+                <td>1, 14, 20, 30, 50</td>
+            </tr>
+            <tr>
+                <td>Maninagar</td>
+                <td>South Ahmedabad</td>
+                <td>22, 56, 105</td>
+            </tr>
+            <tr>
+                <td>Kalupur</td>
+                <td>Near Railway Station</td>
+                <td>7, 31, 120</td>
+            </tr>
+            <tr>
+                <td>Navrangpura</td>
+                <td>West Ahmedabad</td>
+                <td>40, 76, 108</td>
+            </tr>
+            <tr>
+                <td>Iskcon Cross Road</td>
+                <td>SG Highway</td>
+                <td>9, 49, 85</td>
+            </tr>
+            <tr>
+                <td>CTM</td>
+                <td>East Ahmedabad</td>
+                <td>15, 45, 91</td>
+            </tr>
+            <tr>
+                <td>Gita Mandir</td>
+                <td>Bus Depot</td>
+                <td>5, 18, 55, 90</td>
+            </tr>
+            <tr>
+                <td>Shahibaug</td>
+                <td>North Ahmedabad</td>
+                <td>12, 37, 72</td>
+            </tr>
+            <tr>
+                <td>Jodhpur Char Rasta</td>
+                <td>Satellite</td>
+                <td>28, 67, 89</td>
+            </tr>
+            <tr>
+                <td>RTO Circle</td>
+                <td>Subhash Bridge</td>
+                <td>21, 42, 88</td>
+            </tr>
+        </table>
+
+        <a href="index.html" class="back-link">⬅ Back to Home</a>
+    </div>
+
+</body>
+</html>

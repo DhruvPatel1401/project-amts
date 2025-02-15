@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My A.M.T.S.</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FAF4E6;
+            text-align: center;
+        }
+        
+        header {
+            background-color: #D92525;
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+        }
+        
+        .highlight {
+            font-weight: bold;
+        }
+        
+        main {
+            margin-top: 20px;
+        }
+        
+        .grid-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease-in-out;
+            animation: fadeInUp 0.5s ease-in-out;
+        }
+        
+        .grid-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .grid-item i {
+            font-size: 40px;
+            transition: all 0.3s ease-in-out;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-5px); }
+        }
+        
+        .grid-item:hover i {
+            transform: rotate(10deg) scale(1.2);
+        }
+        
+        .fa-bus { color: #007bff; }
+        .fa-map-marked-alt { color: #28a745; }
+        .fa-route { color: #17a2b8; }
+        .fa-map-pin { color: #ffc107; }
+        .fa-map-location-dot { color: #dc3545; }
+        .fa-users { color: #6f42c1; }
+        .fa-comment-dots { color: #fd7e14; }
+        .fa-phone { color: #20c997; }
+        .fa-lock { color: #6610f2; }
+        .fa-qrcode { color: #e83e8c; }
+        
+        .grid-item p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #333;
+        }
+        
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>My <span class="highlight">A.M.T.S.</span></h1>
+    </header>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <a href="whereismybus.html">
+                    <div class="grid-item">
+                        <i class="fas fa-bus"></i>
+                        <p>Where is My Bus</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a href="routefinder.html">
+                    <div class="grid-item">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <p>Route Finder</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a href="knowyourroute.html">
+                    <div class="grid-item">
+                        <i class="fas fa-route"></i>
+                        <p>Know Your Route</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a href="nearby.html">
+                    <div class="grid-item">
+                        <i class="fas fa-map-pin"></i>
+                        <p>Nearby Stop</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a href="busstop.html">
+                    <div class="grid-item">
+                        <i class="fas fa-map-location-dot"></i>
+                        <p>Bus Stop Details</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a href="about.html">
+                    <div class="grid-item">
+                        <i class="fas fa-users"></i>
+                        <p>About Us</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a href="complain.html">
+                    <div class="grid-item">
+                        <i class="fas fa-comment-dots"></i>
+                        <p>Complaint</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a href="Contact.html">
+                    <div class="grid-item">
+                        <i class="fas fa-phone"></i>
+                        <p>Contact Us</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a href="privacy.html">
+                    <div class="grid-item">
+                        <i class="fas fa-lock"></i>
+                        <p>Privacy Policy</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mb-4">
+                <a href="qrcode.html">
+                    <div class="grid-item">
+                        <i class="fas fa-qrcode"></i>
+                        <p>QR Code Ticket</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 My A.M.T.S. | All Rights Reserved by Dhruv Patel.</p>
+    </footer>
+</body>
+</html>

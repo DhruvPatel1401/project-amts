@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - AMTS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f5e8;
+            text-align: center;
+        }
+
+        .header {
+            background-color: #d71920;
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .container {
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            margin-bottom: 15px;
+        }
+
+        .contact-details {
+            text-align: left;
+            display: inline-block;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .contact-details p {
+            font-size: 16px;
+            margin: 12px 0;
+        }
+
+        .contact-details a {
+            color: blue;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-details ul {
+            padding-left: 20px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .footer a {
+            color: #d71920;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <button class="back-btn" onclick="goBack()">⬅ Back</button>
+        <h2>Contact Us</h2>
+    </div>
+
+    <div class="container">
+        <img src="amts.jpeg" alt="AMTS Logo" class="logo">
+        <h3>Ahmedabad Municipal Transport Service (AMTS)</h3>
+
+        <div class="contact-details">
+            <p><strong>📍 Head Office:</strong><br> Ahmedabad Municipal Transport Service, Outside Jamalpur Darwaja, Ahmedabad-380022.</p>
+            <p><strong>🚌 Transport Manager:</strong> 079-25323517 / 25391881-86</p>
+            <p><strong>📞 Toll-Free No.:</strong> 18002330881</p>
+            <p><strong>📧 Email:</strong> <a href="mailto:amtsamc@gmail.com">amtsamc@gmail.com</a></p>
+            <p><strong>🌐 Website:</strong> <a href="https://www.amts.co.in/" target="_blank">www.amts.co.in</a></p>
+
+            <h4>📆 Working Hours</h4>
+            <ul>
+                <li>Monday to Saturday (except 2nd & 4th Saturday, Public Holidays)</li>
+                <li><strong>Office Timings:</strong> 10:30 AM - 6:10 PM</li>
+                <li><strong>Lunch Break:</strong> 2:00 PM - 2:30 PM</li>
+                <li><strong>Cash Transactions:</strong> 11:00 AM - 4:00 PM</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>For more assistance, visit the official <a href="https://www.amts.co.in/" target="_blank">AMTS Website</a>.</p>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+</html>

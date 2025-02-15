@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background.jpg') no-repeat center center/cover;
+            display: flex;
+            background-color: #FAF4E6;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .route-finder {
+            max-width: 600px;
+            width: 90%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        header {
+            background-color: #d0021b;
+            color: #fff;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .back-arrow {
+            font-size: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+        }
+        header h1 {
+            font-size: 18px;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .search-bar {
+            padding: 15px;
+            background-color: #f8f8f8;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-bar input:focus {
+            box-shadow: 0 0 8px rgba(208, 2, 27, 0.5);
+        }
+        .routes {
+            padding: 10px;
+        }
+        .route {
+            margin-bottom: 10px;
+            border-radius: 5px;
+            padding: 15px;
+            background: white;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .route:hover {
+            transform: scale(1.05);
+            background: #ffeadb;
+        }
+        .route-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .route-number {
+            font-weight: bold;
+            color: #d0021b;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        .route-info {
+            flex: 1;
+            color: #555;
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .route-distance {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="route-finder">
+        <header>
+            <a href="index.html" class="back-arrow">&larr;</a>
+            <h1>Route Finder</h1>
+        </header>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for a route..." onkeyup="filterRoutes()">
+        </div>
+        <div class="routes" id="routesList">
+            <div class="route">
+                <div class="route-header">
+                    <span class="route-number">800</span>
+                    <span class="route-info">Akhbarnagar To Akhabar nagar</span>
+                    <span class="route-distance">35.48 km</span>
+                </div>
+            </div>
+            <div class="route">
+                <div class="route-header">
+                    <span class="route-number">900</span>
+                    <span class="route-info">Akhabar nagar To Akhabar nagar</span>
+                    <span class="route-distance">36.52 km</span>
+                </div>
+            </div>
+            <div class="route">
+                <div class="route-header">
+                    <span class="route-number">144/1 Up</span>
+                    <span class="route-info">Lal Darwaja TO Madhav Homes</span>
+                    <span class="route-distance">15.26 km</span>
+                </div>
+            </div>
+            <div class="route">
+                <div class="route-header">
+                    <span class="route-number">144/1 Down</span>
+                    <span class="route-info">Madhav Homes To Lal Darwaja</span>
+                    <span class="route-distance">15.26 km</span>
+                </div>
+            </div>
+            <div class="route">
+                <div class="route-header">
+                    <span class="route-number">400</span>
+                    <span class="route-info">Lal Darwaja To Lal Darwaja</span>
+                    <span class="route-distance">19.97 km</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function filterRoutes() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let routes = document.querySelectorAll('.route');
+            
+            routes.forEach(route => {
+                let routeNumber = route.querySelector('.route-number').textContent.toLowerCase();
+                let routeInfo = route.querySelector('.route-info').textContent.toLowerCase();
+                
+                if (routeNumber.includes(input) || routeInfo.includes(input)) {
+                    route.style.display = "block";
+                } else {
+                    route.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

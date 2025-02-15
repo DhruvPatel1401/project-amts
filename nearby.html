@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Bus Stop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f3e7;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: auto;
+        }
+
+        h1 {
+            background-color: #d32f2f;
+            color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #d32f2f;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #b71c1c;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #444;
+            min-height: 40px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #d32f2f;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Find Nearby Bus Stops</h1>
+        <p>Click the button below to find the nearest bus stop based on your location.</p>
+        <button onclick="findNearbyStop()">Find Nearby Stop</button>
+        <p id="result">Waiting for action...</p>
+        <a href="index.html" class="back-link">⬅ Back to Home</a>
+    </div>
+
+    <script>
+        function findNearbyStop() {
+            let resultElement = document.getElementById('result');
+            resultElement.innerHTML = "⏳ Getting location...";
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async function(position) {
+                    let lat = position.coords.latitude;
+                    let lon = position.coords.longitude;
+
+                    resultElement.innerHTML = `📍 Your Location: ${lat}, ${lon} <br> ⏳ Searching for nearby bus stops...`;
+
+                    let query = `[out:json];node(around:1000, ${lat}, ${lon})["highway"="bus_stop"];out;`;
+                    let url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+
+                    try {
+                        let response = await fetch(url);
+                        let data = await response.json();
+
+                        if (data.elements.length > 0) {
+                            let stopName = data.elements[0].tags.name || "Unnamed Bus Stop";
+                            resultElement.innerHTML = `✅ Nearest Bus Stop: <b>${stopName}</b>`;
+                        } else {
+                            resultElement.innerHTML = "❌ No nearby bus stops found.";
+                        }
+                    } catch (error) {
+                        resultElement.innerHTML = "⚠ Error fetching bus stop data.";
+                        console.error("Error:", error);
+                    }
+                }, function(error) {
+                    resultElement.innerHTML = `⚠ Location error: ${error.message}`;
+                });
+            } else {
+                resultElement.innerHTML = "❌ Geolocation is not supported by your browser.";
+            }
+        }
+    </script>
+
+</body>
+</html>
